@@ -14,7 +14,7 @@ import Link from 'next/link';
 
 export function Navbar() {
   return (
-    <nav className="flex-none bg-light-surface-container w-20 min-h-screen flex flex-col items-center justify-between py-4">
+    <nav className="flex-none bg-light-surface-container w-20 min-h-screen flex flex-col items-center justify-between py-4 fixed">
       <div>
         <NavButton
           Icon={AccountCircleOutlinedIcon}
