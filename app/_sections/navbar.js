@@ -1,14 +1,16 @@
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
-import HomeIcon from "@mui/icons-material/Home";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import HomeIcon from '@mui/icons-material/Home';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 
-import BookIcon from "@mui/icons-material/Book";
-import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import BookIcon from '@mui/icons-material/Book';
+import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
+
+import Link from 'next/link';
 
 export function Navbar() {
   return (
@@ -20,12 +22,18 @@ export function Navbar() {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <NavButton Icon={HomeOutlinedIcon} IconActive={HomeIcon} />
-        <NavButton
-          Icon={CalendarMonthOutlinedIcon}
-          IconActive={CalendarMonthIcon}
-        />
-        <NavButton Icon={BookOutlinedIcon} IconActive={BookIcon} />
+        <Link href={'/dashboard'}>
+          <NavButton Icon={HomeOutlinedIcon} IconActive={HomeIcon} />
+        </Link>
+        <Link href={'/schedule'}>
+          <NavButton
+            Icon={CalendarMonthOutlinedIcon}
+            IconActive={CalendarMonthIcon}
+          />
+        </Link>
+        <Link href={'/courses'}>
+          <NavButton Icon={BookOutlinedIcon} IconActive={BookIcon} />
+        </Link>
       </div>
       <div></div>
     </nav>
