@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Button } from "@/app/_components/button";
-import { Navbar } from "@/app/_sections/navbar";
+import { Button } from '@/app/_components/button';
+import { Navbar } from '@/app/_sections/navbar';
 
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
 export default function Home() {
   return (
@@ -78,7 +78,11 @@ function TodaysTopic() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="primary" href="/" text="Kerjakan Kuis" />
+          <Button
+            variant="primary"
+            href="/courses/1/quiz"
+            text="Kerjakan Kuis"
+          />
           <Button variant="outlined" href="/" text="Lihat Topik" />
         </div>
       </div>
