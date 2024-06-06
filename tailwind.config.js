@@ -18,7 +18,10 @@ module.exports = {
           secondary: "#555F71",
           "surface-container": "#EDEDF4",
           "on-primary-container": "#001B3D",
+          surface: "#F9F9FF",
+          "on-surface": "#191C20",
           "on-surface-variant": "#49454F",
+          "outline-variant": "#C4C6CF",
         },
       },
       fontSize: {
