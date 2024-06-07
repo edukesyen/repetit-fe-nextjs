@@ -35,9 +35,9 @@ function Header() {
     <div>
       <p className="text-title-large text-light-on-surface-variant">Kuis</p>
       <h1 className="text-display-large font-bold">Graf Berbobot</h1>
-      <p className="text-display-small text-light-on-surface-variant">
-        Struktur Data
-      </p>
+      <Link href="/courses/1">
+        <p className="text-display-small text-light-on-surface-variant">Struktur Data</p>
+      </Link>
     </div>
   );
 }
@@ -45,9 +45,7 @@ function Header() {
 function RetentionLevel() {
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-light-on-primary-container text-title-large font-bold">
-        Kemahiran
-      </h2>
+      <h2 className="text-light-on-primary-container text-title-large font-bold">Kemahiran</h2>
       <Slider defaultValue={[50]} max={100} step={1} disabled={true} />
     </div>
   );
@@ -56,9 +54,7 @@ function RetentionLevel() {
 function QuizHistory() {
   return (
     <div className="flex flex-col gap-3">
-      <h2 className="text-light-on-primary-container text-title-large font-bold">
-        Riwayat Kuis
-      </h2>
+      <h2 className="text-light-on-primary-container text-title-large font-bold">Riwayat Kuis</h2>
       <div className="flex flex-col gap-3 max-h-60 overflow-y-scroll">
         <QuestionItem />
         <QuestionItem />
@@ -84,9 +80,7 @@ function QuizHistory() {
 function QuestionItem() {
   return (
     <div className="w-full flex justify-between class bg-light-surface-container rounded-lg border-2 border-light-on-surface-variant gap-8 p-2">
-      <p className="truncate">
-        Jelaskan perbedaan antara graf berbobot dan graf tanpa bobot.
-      </p>
+      <p className="truncate">Jelaskan perbedaan antara graf berbobot dan graf tanpa bobot.</p>
       <p>Mudah</p>
     </div>
   );
@@ -97,12 +91,7 @@ function UtilityButtons() {
     <div className="w-full grid grid-cols-2 [&>*]:w-full [&>*]:h-full> gap-4">
       <Button text="Edit kuis" href="/" variant="outlined" />
       <Button text="Perbarui kuis" href="/" variant="outlined" />
-      <Button
-        text="Kerjakan kuis"
-        className="col-span-2"
-        href="/"
-        variant="primary"
-      />
+      <Button text="Kerjakan kuis" className="col-span-2" href="/" variant="primary" />
     </div>
   );
 }
@@ -111,9 +100,7 @@ function TopGraphHeader() {
   return (
     <div>
       <p class="text-title-small text-light-secondary">Pemahaman</p>
-      <h2 class="text-title-large font-bold text-light-on-primary-container">
-        7 Hari Terakhir
-      </h2>
+      <h2 class="text-title-large font-bold text-light-on-primary-container">7 Hari Terakhir</h2>
     </div>
   );
 }
@@ -169,9 +156,7 @@ function BottomGraphHeader() {
   return (
     <div>
       <p class="text-title-small text-light-secondary">Jadwal</p>
-      <h2 class="text-title-large font-bold text-light-on-primary-container">
-        7 Hari Ke Depan
-      </h2>
+      <h2 class="text-title-large font-bold text-light-on-primary-container">7 Hari Ke Depan</h2>
     </div>
   );
 }
