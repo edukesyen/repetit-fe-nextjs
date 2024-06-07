@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Button, ButtonIconOnly } from "@/app/_components/button";
-import { Navbar } from "@/app/_sections/navbar";
+import { Button, ButtonIconOnly } from '@/app/_components/button';
+import { Navbar } from '@/app/_sections/navbar';
 
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export default function TopicPage() {
   return (
@@ -25,9 +25,7 @@ function Title() {
   return (
     <div className="flex flex-col gap-2">
       <h3 className="text-display-large">Graf Berbobot</h3>
-      <span className="text-display-small text-light-secondary">
-        Struktur Data
-      </span>
+      <span className="text-display-small text-light-secondary">Struktur Data</span>
     </div>
   );
 }
@@ -46,12 +44,8 @@ function Resources() {
               <DescriptionOutlinedIcon />
             </div>
             <div className="flex-1 flex flex-col">
-              <span className="text-title-medium">
-                MIT DSA Weighted Graphs.pdf
-              </span>
-              <span className="text-body-medium text-light-on-surface">
-                pdf - 5 MB
-              </span>
+              <span className="text-title-medium">MIT DSA Weighted Graphs.pdf</span>
+              <span className="text-body-medium text-light-on-surface">pdf - 5 MB</span>
             </div>
             <ButtonIconOnly
               icon={<MoreVertIcon className="text-black" />}
@@ -76,27 +70,19 @@ function Quiz() {
           <div className="flex w-full">
             <div className="flex flex-col w-full">
               <span className="text-title-medium">Riwayat Sebelumnya</span>
-              <span className="text-body-medium text-light-on-surface">
-                19/08/2024
-              </span>
-              <span className="text-body-medium text-light-on-surface">
-                4 Pertanyaan
-              </span>
+              <span className="text-body-medium text-light-on-surface">19/08/2024</span>
+              <span className="text-body-medium text-light-on-surface">4 Pertanyaan</span>
             </div>
             <div className="flex flex-col w-full">
               <span className="text-title-medium">Kuis Mendatang</span>
-              <span className="text-body-medium text-light-on-surface">
-                19/08/2024
-              </span>
-              <span className="text-body-medium text-light-on-surface">
-                4 Pertanyaan
-              </span>
+              <span className="text-body-medium text-light-on-surface">19/08/2024</span>
+              <span className="text-body-medium text-light-on-surface">4 Pertanyaan</span>
             </div>
           </div>
-          <Button text="Tambah" variant="primary" href="#" />
+          <Button text="Lihat Kuis" variant="primary" href="/courses/1/1/quiz" />
         </div>
       ) : (
-        <Button text="Tambah" variant="primary" href="#" />
+        <Button text="Buat Kuis" variant="primary" href="#" />
       )}
     </div>
   );

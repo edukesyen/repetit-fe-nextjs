@@ -31,9 +31,7 @@ function Greeting() {
         <span className="text-yellow-500">
           <CircleOutlinedIcon />
         </span>
-        <span className="text-body-large">
-          Anda berada dalam 5 hari berturut-turut!
-        </span>
+        <span className="text-body-large">Anda berada dalam 5 hari berturut-turut!</span>
       </div>
     </div>
   );
@@ -50,9 +48,7 @@ function TodaysTopic() {
       >
         <div className="flex flex-col gap-2">
           <h3 className="text-headline-medium">Weighted Graph</h3>
-          <span className="text-label-large-prominent text-light-secondary">
-            Struktur Data
-          </span>
+          <span className="text-label-large-prominent text-light-secondary">Struktur Data</span>
         </div>
         <div className="flex gap-10 items-center">
           <div className="flex-none flex flex-col items-center justify-center w-28 border border-light-primary text-light-primary rounded-full aspect-square">
@@ -78,12 +74,8 @@ function TodaysTopic() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button
-            variant="primary"
-            href="/courses/1/quiz"
-            text="Kerjakan Kuis"
-          />
-          <Button variant="outlined" href="/" text="Lihat Topik" />
+          <Button variant="primary" href="/courses/1/1/quiz" text="Lihat Kuis" />
+          <Button variant="outlined" href="/courses/1/1" text="Lihat Topik" />
         </div>
       </div>
     </div>
@@ -106,9 +98,7 @@ function NextReview() {
           </div>
           <div className="flex-1 px-5 rounded-2xl bg-light-surface-container flex flex-col justify-center">
             <span className="text-title-medium">Linked List</span>
-            <span className="text-label-small text-light-secondary">
-              Struktur Data - 4 Soal
-            </span>
+            <span className="text-label-small text-light-secondary">Struktur Data - 4 Soal</span>
           </div>
         </div>
 
@@ -123,9 +113,7 @@ function NextReview() {
           </div>
           <div className="flex-1 px-5 rounded-2xl bg-light-surface-container flex flex-col justify-center">
             <span className="text-title-medium">Linked List</span>
-            <span className="text-label-small text-light-secondary">
-              Struktur Data - 4 Soal
-            </span>
+            <span className="text-label-small text-light-secondary">Struktur Data - 4 Soal</span>
           </div>
         </div>
 
@@ -140,9 +128,7 @@ function NextReview() {
           </div>
           <div className="flex-1 px-5 rounded-2xl bg-light-surface-container flex flex-col justify-center">
             <span className="text-title-medium">Linked List</span>
-            <span className="text-label-small text-light-secondary">
-              Struktur Data - 4 Soal
-            </span>
+            <span className="text-label-small text-light-secondary">Struktur Data - 4 Soal</span>
           </div>
         </div>
       </div>
