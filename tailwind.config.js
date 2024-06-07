@@ -16,6 +16,7 @@ module.exports = {
         light: {
           primary: "#3F5F90",
           secondary: "#555F71",
+          "secondary-container": "#D9E3F8",
           "surface-container": "#EDEDF4",
           "on-primary-container": "#001B3D",
           surface: "#F9F9FF",
