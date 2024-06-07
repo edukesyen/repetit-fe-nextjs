@@ -1,0 +1,9 @@
+# ignore all files
+/*
+
+# except src/ directory
+!/app
+
+# except js and json files
+!/*.js
+!/*.json
