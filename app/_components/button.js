@@ -8,9 +8,9 @@ export function Button({ text, href, variant, className, icon, iconPosition = 's
       className={`w-fit rounded-full text-sm grid place-items-center font-medium py-2.5 px-5 ${btnClassName} ${className}`}
     >
       <div className="flex items-center gap-2">
-        {iconPosition === 'start' && <span>{icon}</span>}
+        {icon && iconPosition === 'start' && <span>{icon}</span>}
         <span>{text}</span>
-        {iconPosition === 'end' && <span>{icon}</span>}
+        {icon && iconPosition === 'end' && <span>{icon}</span>}
       </div>
     </Link>
   );
