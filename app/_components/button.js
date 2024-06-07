@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-export function Button({ text, href, variant, icon, iconPosition = "start" }) {
+export function Button({ text, href, variant, icon, iconPosition = 'start' }) {
   let btnClassName = getButtonVariant(variant);
   return (
     <Link
@@ -8,9 +8,9 @@ export function Button({ text, href, variant, icon, iconPosition = "start" }) {
       className={`w-fit rounded-full text-sm grid place-items-center font-medium py-2.5 px-5 ${btnClassName}`}
     >
       <div className="flex items-center gap-2">
-        {iconPosition === "start" && <span>{icon}</span>}
+        {icon && iconPosition === 'start' && <span>{icon}</span>}
         <span>{text}</span>
-        {iconPosition === "end" && <span>{icon}</span>}
+        {icon && iconPosition === 'end' && <span>{icon}</span>}
       </div>
     </Link>
   );
@@ -29,22 +29,22 @@ export function ButtonIconOnly({ icon, href, variant }) {
 }
 
 function getButtonVariant(variant) {
-  let btnClassName = "";
+  let btnClassName = '';
   switch (variant) {
-    case "primary":
-      btnClassName = "bg-light-primary text-white border border-light-primary";
+    case 'primary':
+      btnClassName = 'bg-light-primary text-white border border-light-primary';
       break;
-    case "filled":
-      btnClassName = "bg-light-primary text-white border border-light-primary";
+    case 'filled':
+      btnClassName = 'bg-light-primary text-white border border-light-primary';
       break;
-    case "outlined":
-      btnClassName = "text-light-primary border border-light-primary";
+    case 'outlined':
+      btnClassName = 'text-light-primary border border-light-primary';
       break;
-    case "text":
-      btnClassName = "text-light-primary";
+    case 'text':
+      btnClassName = 'text-light-primary';
       break;
-    case "tonal":
-      btnClassName = "text-black bg-light-secondary-container";
+    case 'tonal':
+      btnClassName = 'text-black bg-light-secondary-container';
     default:
       break;
   }
