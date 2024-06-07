@@ -33,16 +33,19 @@ module.exports = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
         light: {
           primary: '#3F5F90',
           secondary: '#555F71',
+          'secondary-container': '#D9E3F8',
           'surface-container': '#EDEDF4',
           'on-primary-container': '#001B3D',
+          surface: '#F9F9FF',
+          'on-surface': '#191C20',
           'on-surface-variant': '#49454F',
+          'outline-variant': '#C4C6CF',
         },
       },
       fontSize: {
