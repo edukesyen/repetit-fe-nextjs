@@ -6,7 +6,7 @@ export function Checkbox() {
     setChecked(!checked);
   };
   return (
-    <div className="flex w-12 h-12 justify-center items-center">
+    <div className="flex w-12 h-12 justify-center items-center relative">
       <input
         type="checkbox"
         className="relative peer shrink-0
