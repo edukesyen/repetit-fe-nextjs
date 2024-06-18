@@ -6,7 +6,7 @@ import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 
-export default function Courses() {
+export default function Mentoring() {
   return (
     <main className="flex bg-white text-black">
       <Navbar />

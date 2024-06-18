@@ -7,7 +7,7 @@ import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
-export default function Courses() {
+export default function Mentoring() {
   return (
     <main className="flex bg-white text-black">
       <Navbar />
