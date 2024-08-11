@@ -168,6 +168,7 @@ function CardTopReview() {
         <div className="flex-1 h-28 flex flex-row-reverse justify-around items-end border-b border-black">
           {stats.topReview.map((item, index) => (
             <div
+              key={index}
               style={{
                 height: `${(item.jumlahReview / stats.topReview[0].jumlahReview) * 100}%`,
               }}
@@ -180,7 +181,7 @@ function CardTopReview() {
         <div className="flex-none">
           <ol className="font-bold text-xs text-[#43474E]">
             {stats.topReview.map((item, index) => (
-              <li>
+              <li key={index}>
                 {index + 1}. {item.materi}
               </li>
             ))}
@@ -245,8 +246,8 @@ function CardReviewSelanjutnya() {
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-2">
           <h4 className="font-extrabold text-xl">Review Selanjutnya</h4>
-          {reviewSelanjutnya.map((item) => (
-            <div className="flex items-center gap-3">
+          {reviewSelanjutnya.map((item, index) => (
+            <div key={index} className="flex items-center gap-3">
               <div className="flex flex-col border-r-2  border-[#3F5F90] px-3">
                 <span className="font-extrabold text-base">{item.tanggal}</span>
                 <span className="font-extrabold text-[10px]">{item.bulan}</span>
@@ -287,8 +288,8 @@ function CardTingkatRetensi() {
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-2 w-full">
           <h4 className="font-extrabold text-xl">Tingkat Retensi</h4>
-          {tingkatRetensi.map((item) => (
-            <div className="flex flex-col ">
+          {tingkatRetensi.map((item, index) => (
+            <div key={index} className="flex flex-col ">
               <div className="flex items-center gap-2 ">
                 <Image src={GraphIcon} width={32} height={32} />
                 <span className="font-bold text-[#43474E] text-base">{item.materi}</span>
