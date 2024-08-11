@@ -113,7 +113,7 @@ function CardProgressReview() {
   return (
     <div className="rounded-3xl py-5 px-10 flex flex-col gap-2 border-2 border-[#C6C6D0]">
       <span className="text-base font-extrabold text-[#43474E]">
-        Kamu Mereview {stats.flashcardDireview} flashcards
+        Kamu Mereview {stats.target.flashcardDireview} flashcards
       </span>
       <div className="flex h-8 justify-center items-center">
         <div class="flex-1 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
