@@ -12,27 +12,27 @@ export function SideNav() {
     {
       name: 'BELAJAR',
       iconImage: LearnIcon,
-      href: '/',
+      href: '/dashboard',
     },
     {
       name: 'TOPIK',
       iconImage: TopicsIcon,
-      href: '/',
+      href: '/topics',
     },
     {
       name: 'MENTORING',
       iconImage: MentoringIcon,
-      href: '/',
+      href: '/mentors',
     },
     {
       name: 'PROFIL',
       iconImage: ProfileIcon,
-      href: '/',
+      href: '/profile',
     },
     {
       name: 'PENGATURAN',
       iconImage: SettingsIcon,
-      href: '/',
+      href: '/settings',
     },
   ];
   return (
