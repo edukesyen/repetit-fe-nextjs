@@ -46,7 +46,7 @@ function ListedTopicsCard() {
     },
   ];
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       {topics.map((topic, index) => (
         <CardTopic
           key={index}
