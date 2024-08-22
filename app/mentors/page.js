@@ -4,7 +4,7 @@ import { SideBarRight } from '../_sections/SideBarRight';
 import { Button } from '../_components/Button';
 import BookIcon from '@/public/icons/icon-book.svg'
 import CalendarIcon from '@/public/icons/icon-calendar.svg'
-import ClockIcon from '@/public/icons/icon-calendar.svg'
+import ClockIcon from '@/public/icons/icon-clock.svg'
 
 export default function TopicsPage() {
   return (
