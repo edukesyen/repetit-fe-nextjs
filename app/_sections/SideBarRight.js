@@ -1,42 +1,49 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
-import PlusIcon from '@/public/icons/icon-round-plus.svg';
 import FireIcon from '@/public/icons/icon-fire.svg';
 import DiamondIcon from '@/public/icons/icon-diamond.svg';
 import StarIcon from '@/public/icons/icon-star.svg';
 import GraphIcon from '@/public/icons/icon-graph.svg';
 import BrainIcon from '@/public/icons/icon-brain.svg';
+import { AddTopicModal } from '../_components/AddTopicModal';
+import { AddTopicModalContextProvider } from '../_components/AddTopicModalContext';
+import { AddTopicButton } from '../_components/AddTopicButton';
 
 export function SideBarRight() {
   return (
     <div className="w-full px-8 py-10 flex flex-col gap-6">
-      <Credits />
+      <div className="flex items-center gap-2">
+        <AddTopic />
+        <Credits />
+      </div>
       <CardReviewSelanjutnya />
       <CardTingkatRetensi />
     </div>
   );
 }
 
+function AddTopic() {
+  return (
+    <AddTopicModalContextProvider>
+      <AddTopicModal />
+      <AddTopicButton />
+    </AddTopicModalContextProvider>
+  );
+}
+
 function Credits() {
   return (
     <div className="flex justify-end gap-4">
-      <Link href="/" className="rounded-xl hover:bg-slate-100">
-        <div className="flex gap-2 items-center p-2">
-          <Image src={PlusIcon} alt='icon' width={32} height={32} />
-          <span className="text-base font-extrabold text-[#43474E]">Tambah Topik</span>
-        </div>
-      </Link>
       <div className="flex gap-2 items-center p-2">
-        <Image src={FireIcon} alt='icon' width={32} height={32} />
+        <Image src={FireIcon} alt="icon" width={32} height={32} />
         <span className="text-base font-extrabold text-[#43474E]">7</span>
       </div>
       <div className="flex gap-2 items-center p-2">
-        <Image src={DiamondIcon} alt='icon' width={32} height={32} />
+        <Image src={DiamondIcon} alt="icon" width={32} height={32} />
         <span className="text-base font-extrabold text-[#43474E]">100</span>
       </div>
       <div className="flex gap-2 items-center p-2">
-        <Image src={StarIcon} alt='icon' width={32} height={32} />
+        <Image src={StarIcon} alt="icon" width={32} height={32} />
         <span className="text-base font-extrabold text-[#43474E]">8</span>
       </div>
     </div>
@@ -117,7 +124,7 @@ function CardTingkatRetensi() {
           {tingkatRetensi.map((item, index) => (
             <div key={index} className="flex flex-col ">
               <div className="flex items-center gap-2 ">
-                <Image src={GraphIcon} alt='icon' width={32} height={32} />
+                <Image src={GraphIcon} alt="icon" width={32} height={32} />
                 <span className="font-bold text-[#43474E] text-base">{item.materi}</span>
               </div>
               <div className=" h-8 grid place-items-center ">
@@ -128,7 +135,7 @@ function CardTingkatRetensi() {
                   >
                     <Image
                       src={BrainIcon}
-                      alt='icon'
+                      alt="icon"
                       width={32}
                       height={32}
                       className="absolute -right-1 -top-2.5"
