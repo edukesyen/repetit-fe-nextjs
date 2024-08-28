@@ -22,7 +22,7 @@ export function SideNav() {
     {
       name: 'MENTORING',
       iconImage: MentoringIcon,
-      href: '/mentors',
+      href: '/mentoring',
     },
     {
       name: 'PROFIL',

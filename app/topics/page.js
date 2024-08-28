@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
 import { SideNav } from '../_sections/SideNav';
 import { ProgressBar } from '../_components/ProgressBar';
 import { SideBarRight } from '../_sections/SideBarRight';
@@ -26,21 +28,25 @@ function ListedTopicsCard() {
   const topics = [
     {
       name: 'Weighted Graph',
+      slug: '001-weighted-graph',
       flashcardCount: 4,
       retentionPercentage: 72,
     },
     {
       name: 'CLR(1) Parser',
+      slug: '002-clr1-parser',
       flashcardCount: 4,
       retentionPercentage: 50,
     },
     {
       name: 'Support Vector Machine',
+      slug: '003-svm',
       flashcardCount: 4,
       retentionPercentage: 80,
     },
     {
       name: 'Linked List',
+      slug: '004-linked-list',
       flashcardCount: 4,
       retentionPercentage: 20,
     },
@@ -48,12 +54,13 @@ function ListedTopicsCard() {
   return (
     <div className="flex flex-col gap-6">
       {topics.map((topic, index) => (
-        <CardTopic
-          key={index}
-          topicName={topic.name}
-          flashcardCount={topic.flashcardCount}
-          retentionPercentage={topic.retentionPercentage}
-        />
+        <Link href={`/topics/${topic.slug}`} key={index}>
+          <CardTopic
+            topicName={topic.name}
+            flashcardCount={topic.flashcardCount}
+            retentionPercentage={topic.retentionPercentage}
+          />
+        </Link>
       ))}
     </div>
   );
