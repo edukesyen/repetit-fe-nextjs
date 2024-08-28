@@ -6,27 +6,20 @@ import CardsImage from '@/public/images/cards.png';
 
 import TargetOneIcon from '@/public/icons/icon-target-one.svg';
 
-import { SideNav } from '@/app/_sections/SideNav';
 import { Button } from '@/app/_components/Button';
-import { SideBarRight } from '../_sections/SideBarRight';
+import { DashboardLayout } from '../_layout';
 
 export default function DashboardPage() {
   return (
-    <main className="h-dvh  flex">
-      <div className="flex-none  max-w-[256px] h-full">
-        <SideNav />
-      </div>
-      <div className="flex-1 max-w-3xl mx-auto px-8 py-12 flex flex-col gap-6">
+    <DashboardLayout>
+      <div className="flex flex-col gap-6">
         <h2 className="font-extrabold text-4xl">Review Hari Ini</h2>
         <CardReviewHariIni />
         <h2 className="font-extrabold text-2xl">Aktivitas Bulan Ini</h2>
         <CardProgressReview />
         <CardTopReview />
       </div>
-      <div className="flex-none w-[500px]">
-        <SideBarRight />
-      </div>
-    </main>
+    </DashboardLayout>
   );
 }
 

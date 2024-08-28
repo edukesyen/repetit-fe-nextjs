@@ -13,7 +13,6 @@ export default function TopicsFlashcardsPage() {
         <h2 className="font-extrabold text-2xl">Review</h2>
         <CardLastReview />
         <CardNoReview />
-        <h2 className="font-extrabold text-2xl">Riwayat Review</h2>
       </div>
     </TopicDetailLayout>
   );

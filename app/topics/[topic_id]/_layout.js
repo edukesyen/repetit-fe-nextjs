@@ -9,8 +9,8 @@ import { TabMenu } from './_sections/TabMenu';
 
 export function TopicDetailLayout ({children}) {
   return (
-    <main className="h-dvh flex">
-      <div className="flex-none  max-w-[256px] h-full">
+    <main className="min-h-dvh flex">
+      <div className="flex-none  max-w-[256px] min-h-dvh">
         <SideNav />
       </div>
       <div className="flex-1 max-w-3xl mx-auto px-8 py-12 h-full flex flex-col gap-6">

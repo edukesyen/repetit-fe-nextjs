@@ -1,26 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { SideNav } from '../_sections/SideNav';
 import { ProgressBar } from '../_components/ProgressBar';
-import { SideBarRight } from '../_sections/SideBarRight';
 import GraphIcon from '@/public/icons/icon-graph.svg';
 import StreamlineCardSolid from '@/public/icons/icon-streamline-cards-solid.svg';
+import { DashboardLayout } from '../_layout';
 
 export default function TopicsPage() {
   return (
-    <main className="h-dvh flex">
-      <div className="flex-none  max-w-[256px] h-full">
-        <SideNav />
-      </div>
-      <div className="flex-1 max-w-3xl mx-auto px-8 py-12 flex flex-col gap-6">
+    <DashboardLayout>
+      <div className="flex flex-col gap-6">
         <h2 className="font-extrabold text-4xl">Topik-Topik Mu</h2>
         <ListedTopicsCard />
       </div>
-      <div className="flex-none w-[500px]">
-        <SideBarRight />
-      </div>
-    </main>
+    </DashboardLayout>
   );
 }
 

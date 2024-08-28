@@ -36,7 +36,7 @@ export function SideNav() {
     },
   ];
   return (
-    <nav className=" h-full px-8 py-10 flex flex-col gap-12 border border-r-2 border-neutral-200">
+    <nav className="h-full px-8 py-10 flex flex-col gap-12 border-r-2 border-neutral-200 sticky top-0">
       <Image src={RepetitLogo} alt="repetit logo" />
       <ul className="flex flex-col gap-3">
         {navMenus.map((menu, index) => (
