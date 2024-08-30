@@ -19,7 +19,6 @@ export default function TopicsReviewPage() {
   );
 }
 
-
 function CardNoReview() {
   return (
     <div className="rounded-3xl py-5 px-10 flex flex-col gap-2 border-2 border-[#C6C6D0]">
@@ -43,6 +42,7 @@ function CardLastReview() {
       sulit: 0,
     },
   };
+
   return (
     <div className="rounded-3xl py-5 px-10 flex flex-col gap-2 border-2 border-[#C6C6D0]">
       <div className="flex justify-between items-center">

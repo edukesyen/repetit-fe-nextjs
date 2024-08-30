@@ -1,8 +1,10 @@
+'use client'
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Button } from '@/app/_components/Button';
 import { TopicDetailLayout } from '../_layout';
+import { usePathname } from 'next/navigation';
 
 import sparkleIcon from '@/public/icons/icon-sparkle.svg';
 import CardsImage from '@/public/images/cards.png';
@@ -44,17 +46,19 @@ function CardNoFlashcard() {
 }
 
 function CardLastReview() {
+  const pathName = usePathname()
   const data = {
     materi: 'Weighted Graph',
     topik: 'Struktur Data',
     jumlahFlashcard: 4,
-    linkHref: '/',
+    flashcard_id: [1,2,3,4],
     riwayatTerakhir: {
       mudah: 2,
       baik: 3,
       sulit: 0,
     },
   };
+  const flashcardPathname = `${pathName}/${data.flashcard_id[0]}/question`
   return (
     <div className="rounded-3xl py-5 px-10 flex flex-col gap-2 border-2 border-[#C6C6D0]">
       <div className="flex justify-between items-center">
@@ -94,7 +98,7 @@ function CardLastReview() {
           <span className="font-bold text-lg">flashcard</span>
         </div>
       </div>
-      <Link href={data.linkHref} className="self-end">
+      <Link href={flashcardPathname} className="self-end">
         <Button>REVIEW</Button>
       </Link>
     </div>
