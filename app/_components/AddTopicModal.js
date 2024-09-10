@@ -16,7 +16,7 @@ export function AddTopicModal() {
   const { isOpen, toggleModal } = useAddTopicModalContext();
 
   const handleSubmit = () => {
-    axiosService.post('/topics', {
+    axiosService.post('/topics/', {
       name: topicName,
       tag: topicTag,
       user_id: 6

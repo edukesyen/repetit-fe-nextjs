@@ -20,7 +20,7 @@ export function AddMaterialModal() {
   const handleSubmit = () => {
     alert({ materialName, notes });
     console.log({ materialName, notes });
-    axiosService.post('/materials', {
+    axiosService.post('/materials/', {
       topic_id: topicId,
       name: materialName,
       content: notes,

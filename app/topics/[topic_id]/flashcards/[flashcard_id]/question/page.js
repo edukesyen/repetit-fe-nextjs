@@ -61,7 +61,7 @@ export default function FlashcardQuestionPage() {
 
   function handleSubmit() {
     setSubmitStatus('loading')
-    axiosService.post('/flashcards/evaluate', {
+    axiosService.post('/flashcards/evaluate/', {
       flashcard_id: flashcardId,
       answer: answer,
       datetime_today: new Date().toISOString()
