@@ -34,7 +34,7 @@ function ListedTopicsCard() {
           name: topic.name,
           // slug: `${topic.id}-${topic.name}`,
           slug: `${topic.id}`,
-          flashcardCount: 4,
+          flashcardCount: 0,
           retentionPercentage: 20
         }))
         setData(topics);
@@ -78,7 +78,7 @@ function CardTopic({ topicName = 'No Topic Name', flashcardCount = 0, retentionP
           <span className="font-bold text-[#43474E] text-base">{topicName}</span>
           <div className="w-4" />
           <Image src={StreamlineCardSolid} alt="card icon" width={16} height={16} />
-          <span className="font-bold text-[#C6C6D0] text-sm">{flashcardCount} flashcard</span>
+          <span className="font-bold text-[#C6C6D0] text-sm">flashcard</span>
         </div>
         <div className=" h-8 grid place-items-center ">
           <ProgressBar percentage={retentionPercentage} />
