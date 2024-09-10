@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -5,6 +7,8 @@ import { ProgressBar } from '../_components/ProgressBar';
 import GraphIcon from '@/public/icons/icon-graph.svg';
 import StreamlineCardSolid from '@/public/icons/icon-streamline-cards-solid.svg';
 import { DashboardLayout } from '../_layout';
+import axiosService from '../_utils/axios-service';
+import { useState, useEffect } from 'react';
 
 export default function TopicsPage() {
   return (
@@ -18,35 +22,41 @@ export default function TopicsPage() {
 }
 
 function ListedTopicsCard() {
-  const topics = [
-    {
-      name: 'Weighted Graph',
-      slug: '001-weighted-graph',
-      flashcardCount: 4,
-      retentionPercentage: 72,
-    },
-    {
-      name: 'CLR(1) Parser',
-      slug: '002-clr1-parser',
-      flashcardCount: 4,
-      retentionPercentage: 50,
-    },
-    {
-      name: 'Support Vector Machine',
-      slug: '003-svm',
-      flashcardCount: 4,
-      retentionPercentage: 80,
-    },
-    {
-      name: 'Linked List',
-      slug: '004-linked-list',
-      flashcardCount: 4,
-      retentionPercentage: 20,
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [fetchStatus, setFetchStatus] = useState('idle');
+
+  useEffect(() => {
+    setFetchStatus('loading');
+    axiosService
+      .get(`/topics/user/${6}`)
+      .then((data) => {
+        const topics = data.data.map((topic) => ({
+          name: topic.name,
+          // slug: `${topic.id}-${topic.name}`,
+          slug: `${topic.id}`,
+          flashcardCount: 4,
+          retentionPercentage: 20
+        }))
+        setData(topics);
+        console.log(topics);
+        setFetchStatus('success');
+      })
+      .catch((e) => {
+        setFetchStatus('error');
+      });
+  }, []);
+
+  if (fetchStatus == 'loading') {
+    return <p>loading...</p>;
+  }
+
+  if (fetchStatus == 'error') {
+    return <p>error fetch data</p>;
+  }
+
   return (
     <div className="flex flex-col gap-6">
-      {topics.map((topic, index) => (
+      {data.map((topic, index) => (
         <Link href={`/topics/${topic.slug}`} key={index}>
           <CardTopic
             topicName={topic.name}
@@ -61,7 +71,7 @@ function ListedTopicsCard() {
 
 function CardTopic({ topicName = 'No Topic Name', flashcardCount = 0, retentionPercentage = 0 }) {
   return (
-    <div className="rounded-3xl py-5 px-5 flex flex-col gap-2 border-2 border-[#C6C6D0]">
+    <div className="rounded-3xl py-5 px-5 flex flex-col gap-2 border-2 border-[#C6C6D0] hover:bg-slate-100">
       <div className="flex flex-col ">
         <div className="flex items-center gap-2 ">
           <Image src={GraphIcon} alt="graph icon" width={32} height={32} />

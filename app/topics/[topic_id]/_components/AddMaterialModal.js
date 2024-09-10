@@ -5,20 +5,32 @@ import CloseIcon from '@/public/icons/icon-close.svg';
 import { Button } from '@/app/_components/Button';
 import { useAddMaterialModalContext } from './AddMaterialModalContext';
 import { useState } from 'react';
+import axiosService from '@/app/_utils/axios-service';
+import { usePathname } from 'next/navigation';
 
 export function AddMaterialModal() {
+  const pathName = usePathname()
+  const topicId = pathName.split('/')[2]
   const [materialName, setMaterialName] = useState('');
-  const [fileUpload, setFileUpload] = useState()
+  // const [fileUpload, setFileUpload] = useState()
   const [notes, setNotes] = useState('');
 
   const { isOpen, toggleModal } = useAddMaterialModalContext();
 
   const handleSubmit = () => {
-    alert({ materialName, fileUpload, notes });
-    console.log({ materialName, fileUpload, notes });
-    toggleModal();
-    setMaterialName('');
-    setNotes('');
+    alert({ materialName, notes });
+    console.log({ materialName, notes });
+    axiosService.post('/materials', {
+      topic_id: topicId,
+      name: materialName,
+      content: notes,
+    }).then(() => {
+      toggleModal();
+      setMaterialName('');
+      setNotes('');
+    }).catch(() => {
+      alert("terjadi kesalahan saat menambahkan materi, silahkan coba lagi")
+    })
   };
 
   if (!isOpen) {
@@ -38,7 +50,7 @@ export function AddMaterialModal() {
           </button>
         </div>
         <div className="flex flex-col">
-          <span className="font-extrabold text-[#43474E]">Nama Materi</span>
+          <span className="font-extrabold text-[#43474E]">Nama</span>
           <input
             value={materialName}
             onChange={(e) => setMaterialName(e.target.value)}
@@ -47,7 +59,7 @@ export function AddMaterialModal() {
             className="border-2 border-[#3C6C6D0] bg-[#F5FAFB] p-3 rounded-xl"
           />
         </div>
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <span className="font-extrabold text-[#43474E]">Upload File</span>
           <input
             onChange={(e) => setFileUpload(e.target.files[0])}
@@ -55,15 +67,15 @@ export function AddMaterialModal() {
             accept="application/pdf, application/vnd.ms-excel"
             className="border-2 border-[#3C6C6D0] bg-[#F5FAFB] p-3 rounded-xl w-4/5"
           />
-        </div>
+        </div> */}
         <div className="flex flex-col">
-          <span className="font-extrabold text-[#43474E]">Catatan</span>
+          <span className="font-extrabold text-[#43474E]">Tulis Materi</span>
           <textarea
-            rows={5}
+            rows={12}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             type="text"
-            placeholder="catatan tambahan"
+            placeholder="kamu bisa copy paste dari dokumen"
             className="border-2 border-[#3C6C6D0] bg-[#F5FAFB] p-3 rounded-xl"
           />
         </div>

@@ -123,14 +123,35 @@ function ReservedMentoringSession() {
 
 function calculateRemainingTime(isoTimeThen) {
   const now = new Date(); // Current time
-  const then = new Date(isoTimeThen);
+  const then = new Date(isoTimeThen+"Z"); // Convert to local time
 
-  let remainingTime = Math.abs(then - now); // in milliseconds
+  // Convert both to local timezone
+  const nowLocal = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })); // example: convert to WIB (Asia/Jakarta)
+  const thenLocal = new Date(then.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+
+  let remainingTime = Math.abs(thenLocal - nowLocal); // in milliseconds
+
+  const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+  remainingTime %= 1000 * 60 * 60 * 24;
 
   const hours = Math.floor(remainingTime / (1000 * 60 * 60));
   remainingTime %= 1000 * 60 * 60;
 
   const minutes = Math.floor(remainingTime / (1000 * 60));
 
-  return `${hours} jam ${minutes} menit`;
+  return `${days} Hari ${hours} Jam ${minutes} Menit`;
 }
+
+// function calculateRemainingTime(isoTimeThen) {
+//   const now = new Date(); // Current time
+//   const then = new Date(isoTimeThen);
+
+//   let remainingTime = Math.abs(then - now); // in milliseconds
+
+//   const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+//   remainingTime %= 1000 * 60 * 60;
+
+//   const minutes = Math.floor(remainingTime / (1000 * 60));
+
+//   return `${hours} jam ${minutes} menit`;
+// }

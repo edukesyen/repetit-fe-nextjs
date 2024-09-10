@@ -5,18 +5,30 @@ import CloseIcon from '@/public/icons/icon-close.svg';
 import { Button } from './Button';
 import { useAddTopicModalContext } from './AddTopicModalContext';
 import { useState } from 'react';
+import axiosService from '../_utils/axios-service';
+import { useRouter } from 'next/navigation';
 
 export function AddTopicModal() {
+  const router = useRouter()
   const [topicName, setTopicName] = useState('');
   const [topicTag, setTopicTag] = useState('');
 
   const { isOpen, toggleModal } = useAddTopicModalContext();
 
   const handleSubmit = () => {
-    alert({ topicName, topicTag });
-    toggleModal();
-    setTopicName('');
-    setTopicTag('');
+    axiosService.post('/topics', {
+      name: topicName,
+      tag: topicTag,
+      user_id: 6
+    }).then(() => {
+      toggleModal();
+      setTopicName('');
+      setTopicTag('');
+      router.push('/topics');
+    }).catch((e) => {
+      console.error(e)
+      alert("error submit", e)
+    })
   };
 
   if (!isOpen) {

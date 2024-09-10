@@ -1,3 +1,5 @@
+"use client"
+
 import Image from 'next/image';
 import BrainIcon from '@/public/icons/icon-brain.svg';
 
@@ -5,7 +7,9 @@ import { SideNav } from '@/app/_sections/SideNav';
 import { SideBarRight } from './_sections/SideBarRight';
 import { TabMenu } from './_sections/TabMenu';
 
-
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import axiosService from '@/app/_utils/axios-service';
 
 export function TopicDetailLayout ({children}) {
   return (
@@ -30,24 +34,53 @@ export function TopicDetailLayout ({children}) {
 
 
 function CardTopicDetail() {
-  const data = {
-    materi: 'Weighted Graph',
-    topik: 'STRUKTUR DATA',
-    jumlahFlashcard: 4,
-    linkHref: '/',
-    riwayatTerakhir: {
-      mudah: 2,
-      baik: 3,
-      sulit: 0,
-    },
-  };
+  const pathName = usePathname()
+  const topicId = pathName.split('/')[2].split('-')[0]
+
+  const [data, setData] = useState();
+  const [fetchStatus, setFetchStatus] = useState('idle');
+
+  useEffect(() => {
+    setFetchStatus('loading');
+    axiosService
+      .get(`/topics/${topicId}`)
+      .then(({ data }) => {
+        setData(data);
+        setFetchStatus('success');
+      })
+      .catch((e) => {
+        setFetchStatus('error');
+      });
+  }, [topicId]);
+
+  if (fetchStatus == 'idle') {
+    return <p>please wait...</p>;
+  }
+  if (fetchStatus == 'loading') {
+    return <p>loading...</p>;
+  }
+  if (fetchStatus == 'error') {
+    return <p>error fetch data</p>;
+  }
+
+  // const data = {
+  //   materi: 'Weighted Graph',
+  //   topik: 'STRUKTUR DATA',
+  //   jumlahFlashcard: 4,
+  //   linkHref: '/',
+  //   riwayatTerakhir: {
+  //     mudah: 2,
+  //     baik: 3,
+  //     sulit: 0,
+  //   },
+  // };
   return (
     <div className="rounded-3xl py-8 px-10 flex flex-col gap-2 border-2 border-[#C6C6D0]">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-2">
-          <h4 className="font-extrabold text-xl">{data.materi}</h4>
+          <h4 className="font-extrabold text-xl">{data.name}</h4>
           <span className="inline-block bg-[#FACC15] border rounded-md text-sm font-bold w-fit px-2">
-            {data.topik}
+            {data.tag}
           </span>
         </div>
         <div className="flex flex-col gap-2">
