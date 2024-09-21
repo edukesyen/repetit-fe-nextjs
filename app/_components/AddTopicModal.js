@@ -68,7 +68,7 @@ export function AddTopicModal() {
           />
         </div>
         <div className="flex justify-end">
-          <Button onClick={handleSubmit}>TAMBAHKAN MATERI</Button>
+          <Button onClick={handleSubmit}>TAMBAHKAN TOPIK</Button>
         </div>
       </div>
     </div>

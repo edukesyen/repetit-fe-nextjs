@@ -18,8 +18,8 @@ export function AddMaterialModal() {
   const { isOpen, toggleModal } = useAddMaterialModalContext();
 
   const handleSubmit = () => {
-    alert({ materialName, notes });
-    console.log({ materialName, notes });
+    // alert({ materialName, notes });
+    // console.log({ materialName, notes });
     axiosService.post('/materials/', {
       topic_id: topicId,
       name: materialName,

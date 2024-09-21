@@ -171,7 +171,7 @@ function ProgressBar({}) {
 
 function calculateRemainingTime(isoTimeThen) {
   const now = new Date(); // Current time
-  const then = new Date(isoTimeThen+"Z"); // Convert to local time
+  const then = new Date(isoTimeThen); // Convert to local time
 
   // Convert both to local timezone
   const nowLocal = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })); // example: convert to WIB (Asia/Jakarta)

@@ -275,22 +275,35 @@ function FlashcardList({ topicId }) {
 }
 
 function Flashcard({ flashcardId, topicId, dueDate }) {
-  const fcDueDate = new Date(dueDate);
-  const today = new Date();
-  const isDueToday = today.getDay() >= fcDueDate.getDay();
-  console.log(fcDueDate, today, isDueToday);
+  let fcDueDate = new Date(dueDate);
+  fcDueDate = convertToLocalTimezone(fcDueDate)
+  let today = new Date();
+  today = convertToLocalTimezone(today)
+  const isDueToday = today.getDay() == fcDueDate.getDay();
+  const isOverdue = today.getTime() > fcDueDate.getTime()
+  // console.log(fcDueDate, today, isDueToday);
   return (
     <Link href={`/topics/${topicId}/flashcards/${flashcardId}/question`}>
       <div
-        className={`rounded-3xl p-5 flex flex-col gap-4 border-2 border-slate-400 ${
-          isDueToday ? 'bg-slate-100 hover:bg-[#3F5F90]' : 'bg-slate-300 text-gray-500'
+        className={`rounded-3xl p-5 flex flex-col gap-4 border-2 ${
+          isOverdue ? 
+          'bg-red-200 hover:bg-red-300 border-red-800' :
+          isDueToday ? 
+          'bg-slate-100 hover:bg-[#3F5F90] border-slate-400' : 
+          'bg-slate-300 text-gray-500 border-slate-400'
         }`}
       >
         <div className="w-full aspect-[3/4] flex flex-col justify-between items-center">
-          <span className="text-end w-full justify-end">{isDueToday ? '📝' : '✅'}</span>
+          <span className="text-end w-full justify-end">{
+          isOverdue ? 
+          '⚠️' : 
+          isDueToday ? 
+          '📝' : 
+          '✅'
+          }</span>
           <span className="text-4xl">?</span>
           <span className="text-xs text-center">
-            batas waktu: {calculateRemainingTime(dueDate)}
+            {isOverdue ? 'overdue' : 'review selanjutnya'}: {calculateRemainingTime(dueDate)}
           </span>
         </div>
       </div>
@@ -298,13 +311,26 @@ function Flashcard({ flashcardId, topicId, dueDate }) {
   );
 }
 
+
+function convertToLocalTimezone(date) {
+  const localTZ = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+  console.log("localtz", localTZ)
+  return localTZ
+}
+
+
 function calculateRemainingTime(isoTimeThen) {
   const now = new Date(); // Current time
-  const then = new Date(isoTimeThen+"Z"); // Convert to local time
+  const then = new Date(isoTimeThen); // Convert to local time
 
   // Convert both to local timezone
-  const nowLocal = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })); // example: convert to WIB (Asia/Jakarta)
-  const thenLocal = new Date(then.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+  const nowLocal = convertToLocalTimezone(now)
+  const thenLocal = convertToLocalTimezone(then)
+  // const nowLocal = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })); // example: convert to WIB (Asia/Jakarta)
+  // const thenLocal = new Date(then.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+
+  console.log(nowLocal)
+  console.log(thenLocal)
 
   let remainingTime = Math.abs(thenLocal - nowLocal); // in milliseconds
 
