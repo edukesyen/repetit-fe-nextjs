@@ -34,52 +34,101 @@ export default function TopicsFlashcardsPage() {
       });
   }, [topicId]);
 
-  if (fetchStatus == 'idle') {
-    return <p>please wait...</p>;
-  }
-  if (fetchStatus == 'loading') {
-    return <p>loading...</p>;
-  }
-  if (fetchStatus == 'error') {
-    return <p>error fetch data</p>;
-  }
+
+  // const [dataMaterial, setDataMaterial] = useState();
+  // const [fetchStatusMaterial, setFetchStatusMaterial] = useState('idle');
+
+  const [isNoMaterial, setIsNoMaterial] = useState(true)
+
+  useEffect(() => {
+    axiosService
+      .get(`/materials/topic/${topicId}`)
+      .then(({ data }) => {
+        if (data.length == 0) {
+          setIsNoMaterial(true)
+        } else {
+          setIsNoMaterial(false)
+        }
+      })
+      .catch((e) => {
+        setFetchStatus('error');
+      });
+  }, [topicId]);
+
+  // if (fetchStatus == 'idle') {
+  //   return ;
+  // }
+  // if (fetchStatus == 'loading') {
+  //   return ;
+  // }
+  // if (fetchStatus == 'error') {
+  //   return ;
+  // }
 
   return (
     <TopicDetailLayout>
-      <div className="flex flex-col gap-6">
-        {data.length <= 0 ? (
-          <CardNoFlashcard topicId={topicId} />
-        ) : (
-          <FlashcardList topicId={topicId} />
-        )}
-        {/* <h2 className="font-extrabold text-2xl">Flashcards</h2> */}
-        {/* <CardLastReview topicId={topicId} /> */}
-        {/* <h2 className="font-extrabold text-2xl">Riwayat Review</h2> */}
-        {/* <CardNoReview /> */}
-        {/* <CardReviewHistory /> */}
-      </div>
+      {fetchStatus == 'idle' ? (
+        <p>please wait...</p>
+      ) : fetchStatus == 'loading' ? (
+        <p>loading...</p>
+      ) : fetchStatus == 'error' ? (
+        <p>error fetch data</p>
+      ) : (
+        <div className="flex flex-col gap-6">
+          {isNoMaterial ? (
+            <AddMaterialFirst pathName={pathName} />
+          ) : data.length <= 0 ? (
+            <CardNoFlashcard topicId={topicId} />
+          ) : (
+            <FlashcardList topicId={topicId} />
+          )}
+        </div>
+      )}
     </TopicDetailLayout>
   );
 }
 
+function AddMaterialFirst({pathName}) {
+
+  let materialPath = pathName.split('/')
+  materialPath[3] = "materials"
+  materialPath = materialPath.join('/')
+
+  return (
+    <div className="rounded-3xl py-5 px-10 flex flex-col gap-2 border-2 border-[#C6C6D0]">
+      <span className="text-xl font-extrabold text-[#43474E]">Tambah materi dulu ya</span>
+      <span className="text-base font-bold text-[#43474E]">
+        belum ada materi yang ditambahkan
+      </span>
+      <div className="flex items-center justify-end gap-2">
+        <Link href={materialPath}>
+        <Button>
+          TAMBAH MATERI
+        </Button>
+        </Link>
+      </div>
+    </div>
+  )
+}
+
 function CardNoFlashcard({ topicId }) {
   const router = useRouter();
-  const [requestStatus, setRequestStatus] = useState('idle')
+  const [requestStatus, setRequestStatus] = useState('idle');
 
   function generateFlashcard() {
-    setRequestStatus('loading')
+    setRequestStatus('loading');
     axiosService
       .post(`/flashcards/generate`, {
         topic_id: topicId,
-        datetime_today: new Date().toISOString()
+        datetime_today: new Date().toISOString(),
         // datetime_today: getISOTimeWIB()
       })
       .then(() => {
-        setRequestStatus('success')
+        setRequestStatus('success');
         router.push(`/topics/${topicId}`);
       })
       .catch((e) => {
-        setRequestStatus('idle')
+        setRequestStatus('idle');
         alert('error generate flashcard, please try again');
       });
   }
@@ -90,10 +139,10 @@ function CardNoFlashcard({ topicId }) {
         Tidak ada flashcard yang terdeteksi. Kamu bisa generate flashcard otomatis dari materi
       </span>
       <div className="flex items-center justify-end gap-2">
-        <Button onClick={generateFlashcard} disabled={requestStatus === "loading"}>
+        <Button onClick={generateFlashcard} disabled={requestStatus === 'loading'}>
           <div className="flex items-center gap-2">
             <Image src={sparkleIcon} alt="icon" width={28} height={28} />
-            <span>{requestStatus === "loading" ? "PROCESSING..." : "GENERATE FLASHCARD"}</span>
+            <span>{requestStatus === 'loading' ? 'PROCESSING...' : 'GENERATE FLASHCARD'}</span>
           </div>
         </Button>
       </div>
@@ -276,31 +325,27 @@ function FlashcardList({ topicId }) {
 
 function Flashcard({ flashcardId, topicId, dueDate }) {
   let fcDueDate = new Date(dueDate);
-  fcDueDate = convertToLocalTimezone(fcDueDate)
+  fcDueDate = convertToLocalTimezone(fcDueDate);
   let today = new Date();
-  today = convertToLocalTimezone(today)
+  today = convertToLocalTimezone(today);
   const isDueToday = today.getDay() == fcDueDate.getDay();
-  const isOverdue = today.getTime() > fcDueDate.getTime()
+  const isOverdue = today.getTime() > fcDueDate.getTime();
   // console.log(fcDueDate, today, isDueToday);
   return (
     <Link href={`/topics/${topicId}/flashcards/${flashcardId}/question`}>
       <div
         className={`rounded-3xl p-5 flex flex-col gap-4 border-2 ${
-          isOverdue ? 
-          'bg-red-200 hover:bg-red-300 border-red-800' :
-          isDueToday ? 
-          'bg-slate-100 hover:bg-[#3F5F90] border-slate-400' : 
-          'bg-slate-300 text-gray-500 border-slate-400'
+          isOverdue
+            ? 'bg-red-200 hover:bg-red-300 border-red-800'
+            : isDueToday
+            ? 'bg-slate-100 hover:bg-[#3F5F90] border-slate-400'
+            : 'bg-slate-300 text-gray-500 border-slate-400'
         }`}
       >
         <div className="w-full aspect-[3/4] flex flex-col justify-between items-center">
-          <span className="text-end w-full justify-end">{
-          isOverdue ? 
-          '⚠️' : 
-          isDueToday ? 
-          '📝' : 
-          '✅'
-          }</span>
+          <span className="text-end w-full justify-end">
+            {isOverdue ? '⚠️' : isDueToday ? '📝' : '✅'}
+          </span>
           <span className="text-4xl">?</span>
           <span className="text-xs text-center">
             {isOverdue ? 'overdue' : 'review selanjutnya'}: {calculateRemainingTime(dueDate)}
@@ -311,26 +356,24 @@ function Flashcard({ flashcardId, topicId, dueDate }) {
   );
 }
 
-
 function convertToLocalTimezone(date) {
   const localTZ = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
-  console.log("localtz", localTZ)
-  return localTZ
+  console.log('localtz', localTZ);
+  return localTZ;
 }
-
 
 function calculateRemainingTime(isoTimeThen) {
   const now = new Date(); // Current time
   const then = new Date(isoTimeThen); // Convert to local time
 
   // Convert both to local timezone
-  const nowLocal = convertToLocalTimezone(now)
-  const thenLocal = convertToLocalTimezone(then)
+  const nowLocal = convertToLocalTimezone(now);
+  const thenLocal = convertToLocalTimezone(then);
   // const nowLocal = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })); // example: convert to WIB (Asia/Jakarta)
   // const thenLocal = new Date(then.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
 
-  console.log(nowLocal)
-  console.log(thenLocal)
+  console.log(nowLocal);
+  console.log(thenLocal);
 
   let remainingTime = Math.abs(thenLocal - nowLocal); // in milliseconds
 
@@ -371,16 +414,15 @@ function sortByDate(array, dateProperty) {
   });
 }
 
-
 function getISOTimeWIB() {
   // Get the current date in local time
   const date = new Date();
 
   // Convert the local date to UTC milliseconds
-  const utcDate = date.getTime() + (date.getTimezoneOffset() * 60000);
+  const utcDate = date.getTime() + date.getTimezoneOffset() * 60000;
 
   // Adjust the UTC date to WIB timezone (UTC+7)
-  const wibDate = new Date(utcDate + (7 * 60 * 60000));
+  const wibDate = new Date(utcDate + 7 * 60 * 60000);
 
   // Format as ISO string (removing the 'Z' at the end to indicate local time)
   const isoStringWIB = wibDate.toISOString().slice(0, -1);
@@ -388,11 +430,10 @@ function getISOTimeWIB() {
   return isoStringWIB; // Append WIB timezone offset
 }
 
-
 function convertISOToFormattedLocal(isoString) {
   // Add 'Z' to indicate UTC if the string doesn't have a timezone
-  if (!isoString.includes("Z") && !isoString.includes("+") && !isoString.includes("-")) {
-    isoString += "Z";
+  if (!isoString.includes('Z') && !isoString.includes('+') && !isoString.includes('-')) {
+    isoString += 'Z';
   }
 
   const date = new Date(isoString); // Convert to Date object

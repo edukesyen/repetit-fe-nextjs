@@ -46,10 +46,12 @@ function ListedTopicsCard() {
       });
   }, []);
 
+  if (fetchStatus == 'idle') {
+    return <p>please wait...</p>;
+  }
   if (fetchStatus == 'loading') {
     return <p>loading...</p>;
   }
-
   if (fetchStatus == 'error') {
     return <p>error fetch data</p>;
   }
@@ -62,6 +64,7 @@ function ListedTopicsCard() {
             topicName={topic.name}
             flashcardCount={topic.flashcardCount}
             retentionPercentage={topic.retentionPercentage}
+            topicId={topic.slug}
           />
         </Link>
       ))}
@@ -69,7 +72,36 @@ function ListedTopicsCard() {
   );
 }
 
-function CardTopic({ topicName = 'No Topic Name', flashcardCount = 0, retentionPercentage = 0 }) {
+function CardTopic({ topicName = 'No Topic Name', flashcardCount = 0, retentionPercentage = 0, topicId }) {
+  const [data, setData] = useState([]);
+  const [fetchStatus, setFetchStatus] = useState('idle');
+  const [retention, setRetention] = useState(0)
+
+  useEffect(() => {
+    setFetchStatus('loading');
+    axiosService
+      .get(`/flashcards/retention/${topicId}`)
+      .then((res) => {
+        setData(res.data);
+        setRetention(res.data.retention_percentage)
+        // console.log(topics);
+        setFetchStatus('success');
+      })
+      .catch((e) => {
+        setFetchStatus('error');
+      });
+  }, [topicId]);
+
+
+  if (fetchStatus == 'idle') {
+    return <p>please wait...</p>;
+  }
+  if (fetchStatus == 'loading') {
+    return <p>loading...</p>;
+  }
+  if (fetchStatus == 'error') {
+    return <p>error fetch data</p>;
+  }
   return (
     <div className="rounded-3xl py-5 px-5 flex flex-col gap-2 border-2 border-[#C6C6D0] hover:bg-slate-100">
       <div className="flex flex-col ">
@@ -81,7 +113,7 @@ function CardTopic({ topicName = 'No Topic Name', flashcardCount = 0, retentionP
           <span className="font-bold text-[#C6C6D0] text-sm">flashcard</span>
         </div>
         <div className=" h-8 grid place-items-center ">
-          <ProgressBar percentage={retentionPercentage} />
+          <ProgressBar percentage={retention} />
         </div>
       </div>
     </div>

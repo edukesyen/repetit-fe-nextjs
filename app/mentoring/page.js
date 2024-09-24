@@ -21,13 +21,13 @@ export default function TopicsPage() {
 function TodayMentoringSessionCard() {
   const sessionDetail = {
     mentor: {
-      name: 'Bryan Obama',
-      profileImage: '/images/sid-ts.jpeg',
+      name: 'Andrew C',
+      profileImage: '/images/sid-ts.jpg',
     },
     topic: 'Weighted Graph, Linked List',
-    date: '29 Februari 2024',
+    date: '25 September 2024',
     time: '19:00-20:00',
-    datetimeIso: '2024-08-30T11:57:02Z',
+    datetimeIso: '2024-09-25T11:57:02+07:00',
   };
   return (
     <div className="rounded-3xl py-5 px-5 flex flex-col gap-4 border-2 border-[#C6C6D0]">
@@ -71,19 +71,19 @@ function ReservedMentoringSession() {
   const reservedMentoringSession = [
     {
       mentor: {
-        name: 'Bryan Obama',
+        name: 'Andrew C',
       },
       topic: 'Weighted Graph, Linked List',
-      date: '29 Februari 2024',
+      date: '29 Oktober 2024',
       time: '19:00-20:00',
       datetimeIso: '',
     },
     {
       mentor: {
-        name: 'Bryan Obama',
+        name: 'Andrew C',
       },
       topic: 'Weighted Graph, Linked List',
-      date: '29 Februari 2024',
+      date: '29 Oktober 2024',
       time: '19:00-20:00',
       datetimeIso: '',
     },
@@ -123,7 +123,7 @@ function ReservedMentoringSession() {
 
 function calculateRemainingTime(isoTimeThen) {
   const now = new Date(); // Current time
-  const then = new Date(isoTimeThen+"Z"); // Convert to local time
+  const then = new Date(isoTimeThen); // Convert to local time
 
   // Convert both to local timezone
   const nowLocal = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })); // example: convert to WIB (Asia/Jakarta)

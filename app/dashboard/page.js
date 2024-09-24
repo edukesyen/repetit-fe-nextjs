@@ -21,8 +21,8 @@ export default function DashboardPage() {
     axiosService
       .get(`/topics/user/${6}`)
       .then(({ data }) => {
-        const topicIds = []
-        data.map(topic => topicIds.push(topic.id))
+        const topicIds = [];
+        data.map((topic) => topicIds.push(topic.id));
         setData(topicIds);
         setFetchStatus('success');
       })
@@ -31,32 +31,40 @@ export default function DashboardPage() {
       });
   }, []);
 
-  if (fetchStatus == 'idle') {
-    return <p>please wait...</p>;
-  }
-  if (fetchStatus == 'loading') {
-    return <p>loading...</p>;
-  }
-  if (fetchStatus == 'error') {
-    return <p>error fetch data</p>;
-  }
+  // if (fetchStatus == 'idle') {
+  //   return <p>please wait...</p>;
+  // }
+  // if (fetchStatus == 'loading') {
+  //   return <p>loading...</p>;
+  // }
+  // if (fetchStatus == 'error') {
+  //   return <p>error fetch data</p>;
+  // }
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6">
-        <h2 className="font-extrabold text-4xl">Review Hari Ini</h2>
-        {data.map(topicId => (
-          <CardReviewHariIni key={topicId} topicId={topicId} />
-        ))}
-        <h2 className="font-extrabold text-2xl">Aktivitas Bulan Ini</h2>
-        <CardProgressReview />
-        <CardTopReview />
-      </div>
+      {fetchStatus == 'idle' ? (
+        <p>please wait...</p>
+      ) : fetchStatus == 'loading' ? (
+        <p>loading...</p>
+      ) : fetchStatus == 'error' ? (
+        <p>error fetch data</p>
+      ) : (
+        <div className="flex flex-col gap-6">
+          <h2 className="font-extrabold text-4xl">Review Hari Ini</h2>
+          {data.map((topicId) => (
+            <CardReviewHariIni key={topicId} topicId={topicId} />
+          ))}
+          <h2 className="font-extrabold text-2xl">Aktivitas Bulan Ini</h2>
+          <CardProgressReview2 />
+          {/* <CardTopReview /> */}
+        </div>
+      )}
     </DashboardLayout>
   );
 }
 
-function CardReviewHariIni({topicId}) {
+function CardReviewHariIni({ topicId }) {
   const [data, setData] = useState();
   const [fetchStatus, setFetchStatus] = useState('idle');
 
@@ -84,7 +92,7 @@ function CardReviewHariIni({topicId}) {
   }
 
   if (data.flashcard_count == 0) {
-    return <></>
+    return <></>;
   }
 
   return (
@@ -130,14 +138,62 @@ function CardReviewHariIni({topicId}) {
           <span className="font-bold text-lg">flashcard</span>
         </div>
       </div>
-      <Link
-        href={`/topics/${topicId}/flashcards`}
-        className="self-end"
-      >
+      <Link href={`/topics/${topicId}/flashcards`} className="self-end">
         <Button>REVIEW</Button>
       </Link>
     </div>
   );
+}
+
+function CardProgressReview2() {
+  const [data, setData] = useState();
+  const [fetchStatus, setFetchStatus] = useState('idle');
+
+  useEffect(() => {
+    console.log('FETCH DATA');
+    setFetchStatus('loading');
+    axiosService
+      .get(`/users/${6}`)
+      .then((data) => {
+        const user = {
+          name: data.data.name,
+          username: data.data.email.split('@')[0],
+          joined: 'September 2024',
+          streaks: data.data.streak,
+          stars: data.data.star,
+          diamonds: data.data.diamond,
+          reviews: data.data.target,
+        };
+        setData(user);
+        console.log(user);
+        setFetchStatus('success');
+      })
+      .catch((e) => {
+        setFetchStatus('error');
+      });
+  }, []);
+
+  if (fetchStatus == 'idle') {
+    return <p>please wait...</p>;
+  }
+  if (fetchStatus == 'loading') {
+    return <p>loading...</p>;
+  }
+  if (fetchStatus == 'error') {
+    return <p>error fetch data</p>;
+  }
+
+  return (
+    <div className="rounded-2xl py-5 px-5 flex gap-2 border-2 border-[#C6C6D0]">
+        <div className="flex-none col-span-1">
+          <Image src={TargetOneIcon} alt="icon" width={42} height={42} />
+        </div>
+        <div className="flex-1">
+          <p className="text-xl font-bold">Kamu Mereview {data.reviews} flashcards</p>
+          <p className="font-bold">Yuk Review Lagi!</p>
+        </div>
+      </div>
+  )
 }
 
 function CardProgressReview() {

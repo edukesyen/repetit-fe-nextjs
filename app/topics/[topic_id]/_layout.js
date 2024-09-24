@@ -37,7 +37,8 @@ function CardTopicDetail() {
   const pathName = usePathname()
   const topicId = pathName.split('/')[2].split('-')[0]
 
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+  const [retention, setRetention] = useState(0)
   const [fetchStatus, setFetchStatus] = useState('idle');
 
   useEffect(() => {
@@ -50,6 +51,16 @@ function CardTopicDetail() {
       })
       .catch((e) => {
         setFetchStatus('error');
+      });
+
+    axiosService
+      .get(`/flashcards/retention/${topicId}`)
+      .then((res) => {
+        setRetention(res.data.retention_percentage)
+        // setFetchStatus('success');
+      })
+      .catch((e) => {
+        // setFetchStatus('error');
       });
   }, [topicId]);
 
@@ -74,6 +85,7 @@ function CardTopicDetail() {
   //     sulit: 0,
   //   },
   // };
+
   return (
     <div className="rounded-3xl py-8 px-10 flex flex-col gap-2 border-2 border-[#C6C6D0]">
       <div className="flex flex-col gap-8">
@@ -90,7 +102,7 @@ function CardTopicDetail() {
           </div>
           <div className="w-full grid place-items-center ">
             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-              <div class="bg-[#65A30D] h-2.5 rounded-full" style={{ width: `20%` }}></div>
+              <div class="bg-[#65A30D] h-2.5 rounded-full" style={{ width: `${retention}%` }}></div>
             </div>
           </div>
         </div>

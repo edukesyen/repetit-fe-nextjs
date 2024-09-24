@@ -37,7 +37,7 @@ function CardMaterials() {
   const pathName = usePathname();
   const topicId = pathName.split('/')[2];
 
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [fetchStatus, setFetchStatus] = useState('idle');
 
   useEffect(() => {
@@ -72,17 +72,24 @@ function CardMaterials() {
   // ];
   return (
     <div className="rounded-3xl py-8 px-5 flex flex-col gap-4 border-2 border-[#C6C6D0]">
-      <div className="flex flex-col gap-4">
-        {data.map((material, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-1 p-3 bg-white rounded-2xl border-[1.5px] border-[#C6C6D0] drop-shadow-[0_4px_0_rgba(214,214,208,1)]"
-          >
-            <Image className="flex-none" src={''} alt="icon" width={24} height={24} />
-            <span className="flex-1 font-extrabold">{material.name}</span>
-          </div>
-        ))}
-      </div>
+      {data.length == 0 ? (
+        <div>
+          belum ada materi yang ditambahkan
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {data.map((material, index) => (
+            <Link
+              key={index}
+              href={`${pathName}/${material.id}`}
+              className="flex items-center gap-1 p-3 bg-white rounded-2xl border-[1.5px] hover:bg-slate-200 border-[#C6C6D0] drop-shadow-[0_4px_0_rgba(214,214,208,1)]"
+            >
+              <Image className="flex-none" src={''} alt="icon" width={24} height={24} />
+              <span className="flex-1 font-extrabold">{material.name}</span>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

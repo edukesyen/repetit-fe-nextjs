@@ -66,10 +66,25 @@ export default function FlashcardQuestionPage() {
       answer: answer,
       datetime_today: new Date().toISOString()
       // datetime_today: getISOTimeWIB()
-    }).then(({data}) => {
-      setSubmitStatus('success')
-      console.log("success",data)
-      router.push(nextPath)
+    }).then((resFc) => {
+      axiosService.get(`/users/${6}`).then((resUser) => {
+        const stars = resFc.data[0].passed_criteria_1 + resFc.data[0].passed_criteria_2 + resFc.data[0].passed_criteria_3
+        axiosService
+          .put(`/users/${6}`, {
+            ...resUser.data,
+            star: resUser.data.star + stars,
+            streak: resUser.data.streak + 1,
+            target: resUser.data.target + 1,
+          })
+          .then(() => {
+            setSubmitStatus('success')
+            console.log("success", resFc.data)
+            router.push(nextPath)
+          })
+          .catch((e) => {
+            throw e
+          })
+      })
     }).catch((e) => {
       setSubmitStatus('error')
       alert("error", e)
