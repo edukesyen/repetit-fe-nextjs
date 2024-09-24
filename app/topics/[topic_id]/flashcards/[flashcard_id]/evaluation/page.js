@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 import { Button } from '@/app/_components/Button';
 
 import starIcon from '@/public/icons/icon-star.svg';
+import FireIcon from '@/public/icons/icon-fire.svg';
+import TargetIcon from '@/public/icons/icon-target-one.svg';
 import closeIcon from '@/public/icons/icon-close.svg';
 import { useState, useEffect } from 'react';
 
@@ -53,12 +55,11 @@ export default function FlashcardQuestionPage() {
       .get(`/flashcards/last-review/${flashcardId}`)
       .then(({ data }) => {
         setData(data);
-        setFetchStatus('success')
+        setFetchStatus('success');
       })
       .catch((e) => {
         setFetchStatus('error');
       });
-
   }, [flashcardId]);
 
   if (fetchStatus == 'idle') {
@@ -72,22 +73,25 @@ export default function FlashcardQuestionPage() {
   }
 
   const nextPathArr = pathName.split('/');
-  nextPathArr.pop()
-  nextPathArr.pop()
+  nextPathArr.pop();
+  nextPathArr.pop();
   // nextPathArr[4] = data?.next_flashcard_id || 11;
   // nextPathArr[5] = 'question';
   const nextPath = `${nextPathArr.join('/')}`;
 
-  function convertToLocalDate (iso) {
-    const date = new Date(iso)
-    return date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })
+  function convertToLocalDate(iso) {
+    const date = new Date(iso);
+    return date.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' });
   }
 
   return (
     <main className="min-h-dvh grid place-items-center">
       <nav className="fixed top-0 w-full">
         <div className="max-w-[680px] mx-auto flex items-center gap-2">
-          <Link href={nextPathArr.slice(0, 4).join('/')} className="flex-none hover:bg-slate-200 rounded-xl">
+          <Link
+            href={nextPathArr.slice(0, 4).join('/')}
+            className="flex-none hover:bg-slate-200 rounded-xl"
+          >
             <Image src={closeIcon} alt="close icon" width={48} height={48} />
           </Link>
           <div className="flex-1">
@@ -97,10 +101,10 @@ export default function FlashcardQuestionPage() {
       </nav>
       <div className="max-w-[680px] mx-auto flex flex-col gap-6">
         <div>
-          <span className="font-extrabold text-[#767680]">REVIEW - {data?.topic.toUpperCase()}</span>
-          <p className="font-extrabold text-3xl">
-            {data?.question}
-          </p>
+          <span className="font-extrabold text-[#767680]">
+            REVIEW - {data?.topic.toUpperCase()}
+          </span>
+          <p className="font-extrabold text-3xl">{data?.question}</p>
         </div>
         <div className="flex gap-2">
           <div className="flex-1 flex flex-col items-center gap-2 border-2 border-[#C6C6D0] p-4 rounded-xl">
@@ -109,8 +113,8 @@ export default function FlashcardQuestionPage() {
               <span className="font-extrabold text-white text-5xl">{data?.score}</span>
             </div>
             <span className="text-[#767680] font-bold text-center">
-              Review Selanjutnya: <br /> {convertISOToFormattedLocal(data.next_review_date)} .
-              ({calculateRemainingTime(data.next_review_date_iso)})
+              Review Selanjutnya: <br /> {convertISOToFormattedLocal(data.next_review_date)} . (
+              {calculateRemainingTime(data.next_review_date_iso)})
             </span>
           </div>
           <div className="flex-1 flex items-center border-2 border-[#C6C6D0] p-4 rounded-xl">
@@ -119,6 +123,20 @@ export default function FlashcardQuestionPage() {
                 <AnswerCriteria key={index} criteria={criteria.name} isPassed={criteria.passed} />
               ))}
             </div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center w-full gap-4 font-bold">
+          <div className="flex items-center gap-1">
+            <Image src={starIcon} alt="star" />
+            <p>+{data.score}</p>
+          </div>
+          <div className="flex items-center gap-1">
+            <Image src={TargetIcon} alt="star" />
+            <p>+1</p>
+          </div>
+          <div className="flex items-center gap-1">
+            <Image src={FireIcon} alt="star" />
+            <p>+1</p>
           </div>
         </div>
         <form action="">
@@ -190,8 +208,6 @@ function calculateRemainingTime(isoTimeThen) {
   return `${days} Hari ${hours} Jam ${minutes} Menit`;
 }
 
-
-
 // function calculateRemainingTime(isoTimeThen) {
 //   const now = new Date(); // Current time
 //   const then = new Date(isoTimeThen);
@@ -210,11 +226,10 @@ function calculateRemainingTime(isoTimeThen) {
 //   return `${days} Hari ${hours} Jam`;
 // }
 
-
 function convertISOToFormattedLocal(isoString) {
   // Add 'Z' to indicate UTC if the string doesn't have a timezone
-  if (!isoString.includes("Z") && !isoString.includes("+") && !isoString.includes("-")) {
-    isoString += "Z";
+  if (!isoString.includes('Z') && !isoString.includes('+') && !isoString.includes('-')) {
+    isoString += 'Z';
   }
 
   const date = new Date(isoString); // Convert to Date object

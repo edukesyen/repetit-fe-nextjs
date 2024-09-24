@@ -84,7 +84,7 @@ function CardMaterials() {
               href={`${pathName}/${material.id}`}
               className="flex items-center gap-1 p-3 bg-white rounded-2xl border-[1.5px] hover:bg-slate-200 border-[#C6C6D0] drop-shadow-[0_4px_0_rgba(214,214,208,1)]"
             >
-              <Image className="flex-none" src={''} alt="icon" width={24} height={24} />
+              {/* <Image className="flex-none" src={''} alt="icon" width={24} height={24} /> */}
               <span className="flex-1 font-extrabold">{material.name}</span>
             </Link>
           ))}

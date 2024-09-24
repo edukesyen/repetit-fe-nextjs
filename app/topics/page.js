@@ -32,7 +32,6 @@ function ListedTopicsCard() {
       .then((data) => {
         const topics = data.data.map((topic) => ({
           name: topic.name,
-          // slug: `${topic.id}-${topic.name}`,
           slug: `${topic.id}`,
           flashcardCount: 0,
           retentionPercentage: 20
